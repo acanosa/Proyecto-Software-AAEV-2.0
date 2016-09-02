@@ -1,0 +1,117 @@
+CLASE DE PROJECT Y COCOMO 2
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+				PROJECT PRO 2013
+
+project -> gantt
+
+Sirve para darnos cuenta el estado de las tareas del proyecto (atrasado, adelantado... etc)
+Marcar los hitos.
+Columna nombres -> Persona que tiene la tarea asignada
+
+Las tareas se pueden asignar con config automatica o manual (barra inferior)
+1 dia? -> estimacion, no estamos seguros de cuanto dura la tarea
+Predecesoras -> esto asocia una tarea con el id asignado en la columna con el nombre 
+
+Consejo: excel con tareas, pegar en project y luego asignar dias
+
+HITO -> para indicar un hito, a la duracion de dias se le asigna 0
+(Sino puede usarse la herramienta "Insertar -> hito"
+
+RESUMEN -> se le asigna n cantidad de a una Fase, el gantt indica la fase
+
+Se puede usar iteracion 
+Para todas las iteraciones no hacen falta todas las tareas
+
+Pueden hacerse tareas al mismo tiempo
+
+Se recomienda seguimiento de 2 semanas
+
+Se puede marcar un porcentaje de tarea finalizada, aunque graficamente 
+no esta al porcentaje indicado porque no cuenta dias no habiles
+
+que poner: 
+Fases de ciclo de vida
+Tareas que se desempeñan 
+
+GANTT DE SEGUIMIENTO: seguimiento de las tareas, indica procentaje total de cada una de las fases,
+
+Se pueden asignar recursos al trabajo, estos pueden ser de tipo Trabajo (RRHH), Material (un lugar)
+y un Costo (plata)
+
+Boton "Diagrama de GANTT" -> recursos
+Para asignar recursos a una tarea es necesario tenerlo definido en la planilla de recursos
+No se puede asignar un recurso a tareas superpuestas
+Se puede repartir el recurso  en tareas (50% en una y 50 en otra, x ej)
+Hay que ver el tema del calendario para los errores de superposicion con recursos iguales
+
+Fecha de estado: en que fecha estoy en el gantt, 
+puede usarse para posicionamiento en el mismo y estimacion 
+
+Pestaña proyecto -> Boton Tiempo de trabajo (No tiene nombre) -> configura el calendario
+
+Calcular que las personas van a tener tareas que no tienen nada que ver en el proyecto
+
+"Un equipo que no se relaciona es un equipo que tarda mas en las tareas" - Eze
+
+Puede servir para revisar los recursos de costo para evitar un costo gigante en el proyecto o no
+quedarse sin presupuesto
+
+No ser rata con el presupuesto, puede causar descontento en el equipo. Parte del presupuesto es de
+retribucion, ya que te pueden hacer la cruz.
+
+Diagrama de red -> Analisis de PERT para camino critico
+
+Click derecho en grafico -> Mostrar -> Tareas criticas -> se ven en rojo las tareas criticas del proyecto
+osea el caminio critico
+
+Tareas que se realizan todo el ciclo de vida no es necesario graficarlas, ya que son mas que nada tareas
+operativas, se puede poner igual, aunque no es necesario.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+				ESTIMACION COCOMO II
+www.ifpug.org
+Comunidad ifpug -> constantemente actualizando valores de puntos de funcion
+
+AL inicio -> Early Design -> Numeros "Feos"
+
+Labor rate -> Cuanto cobra por mes un desarrollador
+
+Django -> valor -> entre 8 y 20
+
+Python -> valor -> mas o menos 13
+
+EJEMPLO ABM 
+-Inputs ->  por las queries y todo
+-Outputs -> objetos que quedan
+-files (tablas) -> (agregar mas si tiene estados)tablas de BD
+-Interfaces -> interfaces con otros sistemas
+-Queries -> consultas, busquedas, etc.
+
+Madurez del proceso: Very high
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

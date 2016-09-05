@@ -18,4 +18,8 @@ Terminado el proceso, instalar mysqlclient (conector a la BD)
 Luego de que se instale, instalar django:
   Entrar a cmd -> escribir "python -m pip install django==1.7.7" 
   Tener en cuenta de que si no se especifica la version se instalara la mas nueva (1.10)
-
+  
+MATERIAL DESIGN LITE:
+  La herramienta de Google que es obligatoria usar, basicamente aca esta toda la informacion sobre ella:  https://material.google.com/
+  Para instalar, descargar de la pestaña "DOWNLOAD" de esta pagina y descomprimir donde irian los templates: https://getmdl.io/started/index.html
+  Mas abajo en esa misma pagina tienen un ejemplo para aplicar unos botones en la pag, basicamente son clases css que se incluyen en el elemento.

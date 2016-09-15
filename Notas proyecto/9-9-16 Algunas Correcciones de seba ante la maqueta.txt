@@ -1,0 +1,20 @@
+-Opcion de descripcion a una imagen de respuesta
+-establecer duracion del examen
+-eliminar examen realizado
+-cambiar de color el link del examen q ya respondio
+-DEBATIR lo del nro de tintentos para sacarlo de las tablas
+-requisito funcional guardar examen en borrador
+-crear examen->definir guias
+	     ->cantidad de preguntas
+-si ya estoy creando el examen y preguntas al mismo tiempo o pantalla siguiente 
+crear y editar puede ser el mismo formulario
+manda el post y actualiza la pagina con nuevas opciones
+-tipo de pregunta en una lista
+-elegir para el examen tipo de pregunta,preguntas y cantidad->por tipo
+							    ->por guia
+seleccion de guia, cantidad, tipo de pregunta para examen
+-al declarar respuesta pones cuantas resp y la primera siempre es la correcta
+-una unica oracion con V o F, no dar 2 opciones ( desplegable)
+-alta y edicion misma pantalla
+-evitar hacer el borrador del borrador xq es complicado 
+-botones ON y OFF si es publico o no, sio el elemento se puede ver o no

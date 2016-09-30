@@ -1,0 +1,3 @@
+-DER:
+*relacion pregunta examen,yo digo q no va y habria q
+ unir tipo de pregunta con examen(colo)

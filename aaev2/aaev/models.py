@@ -26,8 +26,8 @@ class Alumno(models.Model):
 
 
 class AlumnoHasMateria(models.Model):
-    idalumno = models.ForeignKey(Alumno, db_column='idAlumno')  # Field name made lowercase.
-    idmateria = models.ForeignKey('Materia', db_column='idMateria')  # Field name made lowercase.
+    idalumno = models.ForeignKey(Alumno, db_column='idAlumno', primary_key=True)  # Field name made lowercase.
+    idmateria = models.ForeignKey('Materia', db_column='idMateria', primary_key=True)  # Field name made lowercase.
     habilitado = models.IntegerField()
 
     class Meta:
@@ -181,7 +181,7 @@ class Tipopregunta(models.Model):
 
 
 class Unidad(models.Model):
-    idunidad = models.IntegerField(db_column='idUnidad')  # Field name made lowercase.
+    idunidad = models.IntegerField(db_column='idUnidad', primary_key=True)  # Field name made lowercase.
     nombre = models.CharField(db_column='Nombre', max_length=45)  # Field name made lowercase.
     idmateria = models.ForeignKey(Materia, db_column='idMateria')  # Field name made lowercase.
 

@@ -4,10 +4,8 @@ from aaev.models import Login, Universidad, UniversidadHasCarrera
 from aaev.models import Carrera, Alumno, SolicitudRegistro, Login
 from aaev.models import Docente, DocenteHasMateria,Materia
 from django.shortcuts import redirect
-from django.http import HttpResponse
-from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.template.loader import render_to_string
+
 from django import forms
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
@@ -16,13 +14,16 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse_lazy
 from django.forms import ModelForm
 from django.http import Http404
-from funciones import validarLogin
+from funciones import validarLogin, traerCantInscriptosMateria
+from funciones import traerCantSolicitantesMateria
+from funciones import traerCantUnidadesMateria, traerCantExamenesMateria
+from funciones import traerCantPreguntasUnidad, traerCantPreguntasMateria
 from django.views.decorators.csrf import csrf_protect
-from django.template import RequestContext
-from django.core.urlresolvers import reverse
-from django.core import serializers
 
-# Create your views here.
+from django.template.defaulttags import register
+
+
+# ----------------------------------- VISTAS -------------------------
 @csrf_protect
 def index(request):
     return render(request, 'index.html', None)
@@ -62,16 +63,28 @@ def login(request):
             return render_to_response('index.html', token)
 
 def inicioDocente(request):
-    nombreUsuario = request.session['usuario']
-    usuario = Login.objects.get(usuario=nombreUsuario)
-    docente = Docente.objects.get(idlogin = usuario.idlogin)
     try:
-        materias = DocenteHasMateria.objects.filter(iddocente=docente.iddocente)
-        materias = Materia.objects.filter(docentehasmateria=materias) #materias del docente
-    except (DocenteHasMateria.DoesNotExist, Materia.DoesNotExist):
-        materias=None #si no existen agrego None
-    context = {'usuario': usuario, 'docente': docente, 'materias': materias}
-    return render(request,'inicioDocente.html', context)
+        if request.session['usuario']:
+            nombreUsuario = request.session['usuario']
+            usuario = Login.objects.get(usuario=nombreUsuario)
+            docente = Docente.objects.get(idlogin = usuario.idlogin)
+            try:
+                materias = DocenteHasMateria.objects.filter(iddocente=docente.iddocente)
+                materias = Materia.objects.filter(docentehasmateria=materias) #materias del docente
+            except (DocenteHasMateria.DoesNotExist, Materia.DoesNotExist):
+                materias=None #si no existen agrego None
+            context = {'usuario': usuario, 'docente': docente, 'materias': materias}
+            return render(request,'inicioDocente.html', context)
+        else:
+            return redirect('aaev:index')
+    except:
+        return redirect('aaev:index')
+
+def logout(request):
+    if request.method == 'POST':
+        del request.session['usuario']
+        return redirect('aaev:index')
+
 
 @ensure_csrf_cookie
 def registro(request):
@@ -103,7 +116,7 @@ def registrar(request):
          return render_to_response('Registro_completo.html', token)
 
 
-
+##-------------------------FORM DE MODELOS PARA ABM--------------------
 class LoginForm(ModelForm):
     class Meta:
         model = Login
@@ -144,3 +157,30 @@ class RegistrarSolicitudForm(ModelForm):
          fields = ['nombre','apellido','dni','email']
 
         """
+#------------------------METODOS PARA TEMPLATES--------------------
+@register.filter
+def contarPreguntas(materia):
+    return traerCantPreguntasMateria(materia)
+
+@register.filter
+def contarUnidades(materia):
+    return traerCantUnidadesMateria(materia)
+
+@register.filter
+def contarInscriptos(materia):
+    return traerCantInscriptosMateria(materia)
+
+@register.filter
+def contarSolicitantes(materia):
+    return traerCantSolicitantesMateria(materia)
+
+@register.filter
+def contarExamenes(materia):
+    return traerCantExamenesMateria(materia)
+
+@register.filter
+def vacio(numero):
+    if numero==0:
+        return True
+    else:
+        return False

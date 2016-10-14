@@ -1,0 +1,151 @@
+<html>
+<head>
+<title> Docente: {{docente.nombre}} {{docente.apellido}}</title>
+{% load staticfiles %}
+<script src="{% static 'aaev/material.min.js' %}"></script>
+<script src=" {% static 'aaev/jquery.js' %}"></script>
+<script src=" {% static 'aaev/DjangoAjax.js' %}"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.green-light_green.min.css" />
+
+
+</head>
+<style>
+.demo-card-wide.mdl-card {
+  width: 800px;
+}
+
+.demo-card-wide > .mdl-card__title {
+
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #6666cc;
+}
+
+.demo-card-wide > .mdl-card__supporting-text {
+
+  align-items: center;
+  justify-content: center;
+
+}
+#boton{
+
+	height: 50px;
+}
+
+button {
+     background:none!important;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     border-bottom:1px solid #444; 
+     cursor: pointer;
+}
+
+
+</style>
+<script language="JavaScript" type="text/javascript">
+
+	function submit(){
+				
+				document.getElementById("form").submit();
+			
+	}
+</script>
+<body>
+	{% if docente %}
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row  mdl-shadow--8dp">
+				<span class="mdl-layout-title" style="color: white;"> AAEV 2.0 / Docente {{docente.nombre}} {{docente.apellido}}</span>
+				<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+				<form method="POST" action="{% url 'aaev:cerrarSesion'%}" name="form"  id="form">
+				{% csrf_token %}
+					<a id="boton" style="color: white;" class="mdl-navigation__link" onclick="document.getElementById('form'),submit();" href="#">Cerrar sesion</a>
+				</form>
+				</nav>
+			</div>
+		</header>
+		<main class="mdl-layout__content" id="cuerpo">
+			<div class="page-content content-grid mdl-grid">
+				<div style="margin-top: 6%;">
+					<div class="demo-card-wide mdl-card mdl-shadow--8dp mdl-cell">
+							<div  class="mdl-card__title mdl-card--expand"> 
+								<h5 class="mdl-card__title-text"> Mis materias </h5>
+							</div>
+							<div class="mdl-card__supporting-text">
+								<div>
+									<p> Aca podes ver tus materias, examenes y demas.
+								</div>
+								<div>
+									{% if materias %}
+									<table class="mdl-data-table mdl-js-data-table">
+										<thead>
+											<tr>
+												<th class="mdl-data-table-cel--non-numeric"> Materia </th>
+												<th> Unidades </th>
+												<th> Preguntas </th>
+												<th> Examenes </th>
+												<th> Alumnos pendientes </th>
+												<th> Alumnos aceptados </th>
+											</tr>
+										<thead>
+										<tbody>
+											
+											{% for materia in materias %}
+											<tr onclick="console.log('click'); return false;">
+											
+												<td class="mdl-data-table-cel--non-numeric">{{materia.nombre}}</td>
+												<td> {{ materia| contarUnidades }}	</td>
+												<td> {{ materia| contarPreguntas }}</td>
+												<td> {{ materia| contarExamenes}}	</td>
+												{% if materia|contarSolicitantes|vacio %}
+												<td style="color: #1bc700;"> Sin solicitudes </td>
+												{% else %}
+												<td style="color: #0fd7ff;"> {{ materia|contarSolicitantes}} </td>
+												{% endif %}
+												{% if materia|contarInscriptos|vacio %}
+												<td style="color: #1bc700;"> Sin inscriptos </td>
+												{% else %}
+												<td style="color: #0fd7ff;"> {{ materia|contarInscriptos}} </td>
+												{% endif %}
+												
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+									{% else %}
+										<p> No tenes materias en este momento </p>
+									{% endif %}
+								
+								</div>
+							</div>
+					</div>
+					<div class="demo-card-wide mdl-card mdl-shadow--8dp mdl-cell">
+						<div class="mdl-card__title mdl-card--expand">
+							<h5 class="mdl-card__title-text"> Solicitud de Materia </h5>
+						</div>
+						<div class="mdl-card__supporting-text">
+							<p>Escribi el mensaje para enviar al administrador indicando Universdiad, Carrera y materia que dictas</p>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<textarea class="mdl-textfield__input" name="mensajeSolicitud" rows="3"></textarea>
+								<label for="mensajeSolicitud" class="mdl-textfield__label"> Escribi el mensaje aca </label>
+							</div>
+						</div>
+						<div class="mdl-card__actions mdl-card--border">
+						
+						</div>
+					
+					</div>
+				</div>
+				
+			</div>
+		</main>
+	</div>
+	{% endif %}
+</body>
+</html>

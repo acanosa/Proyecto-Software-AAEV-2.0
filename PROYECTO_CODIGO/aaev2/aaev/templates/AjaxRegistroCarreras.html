@@ -1,0 +1,45 @@
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+{% load staticfiles %}
+<script src="{% static 'aaev/material.min.js' %}"></script>
+<script src="{% static 'aaev/getmdl-select.min.js' %}"></script>
+<script src="{% static 'aaev/jquery.js' %}"></script>
+<link rel="stylesheet" href="{% static 'aaev/getmdl-select.min.css' %}"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.red-blue.min.css"></link>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta> <!-- dispositivos moviles -->
+<script type="text/javascript">
+
+$(document).ready(function(){
+		$("#carreraOpcion").click(function(){
+				var idCarreraSeleccionada= $("#carreraOpcion").val();
+				$("#idCarrera").val(idCarreraSeleccionada);
+				
+		});
+
+});
+</script>
+
+	
+	
+	
+	<div class="mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label
+										getmdl-select getmdl-select__fullwidth">
+										  <!-- Simple Select -->
+											
+												<input class="mdl-textfield__input" type="text" id="elegirCarrera" value="Elegir" readonly tabIndex="-1">
+												<label for="elegirCarrera" class="mdl-textfield__label">Seleccione carrera</label>
+												<ul id="menuUniversidad" for="elegirCarrera" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+												{% for carrera in carreras %}
+												<li id="carreraOpcion"
+												class="mdl-menu__item" value="{{carrera.idcarrera}}"> {{carrera.nombre}} </li>
+												<!-- 
+													<li class="mdl-menu__item" value="1">(UNLa) Universidad Nacional de Lanus</li>
+													<li class="mdl-menu__item">(UNLZ) Universidad Nacional de Lomas de Zamora</li>
+													<li class="mdl-menu__item">(UBA) Universidad de Buenos Aires</li>
+												-->
+												</ul>
+												{% endfor %}
+		<input type="button" id="mostrarCarreras" value="VER"/>
+	</div><!--Universidades-->

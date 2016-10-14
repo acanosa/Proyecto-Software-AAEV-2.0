@@ -1,0 +1,307 @@
+<html>
+<head>
+
+<title> Registro </title>
+{% load staticfiles %}
+<script src="{% static 'aaev/material.min.js' %}"></script>
+<script src="{% static 'aaev/getmdl-select.min.js' %}"></script>
+<script src="{% static 'aaev/jquery.js' %}"></script>
+<link rel="stylesheet" href="{% static 'aaev/getmdl-select.min.css' %}"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.red-blue.min.css"></link>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta> <!-- dispositivos moviles -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<style>
+/*
+.mdl-layout{
+	align-items: center;
+	justify-content: center;
+} */
+
+
+.demo-card-wide.mdl-card {
+  width: 512px;
+}
+
+.demo-card-wide > .mdl-card__title {
+
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #6666cc;
+}
+
+
+
+
+
+
+
+
+</style>
+
+<script type="text/javascript">
+		
+		function mostrarAlumno(){
+			var alumno=document.getElementById("Alumno");
+			var docente=document.getElementById("Docente");
+			document.getElementById("Alumno").style.display='inline';
+			document.getElementById("Docente").style.display='none';
+		}
+		
+		function mostrarDocente(){
+			
+			var alumno= document.getElementById("Alumno");
+			var docente= document.getElementById("Docente");
+			document.getElementById("Alumno").style.display='none';
+			document.getElementById("Docente").style.display='inline';
+		
+		}
+		
+			
+	/*
+	$(document).ready(function(){
+		function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = jQuery.trim(cookies[i]);
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+		
+		function csrfSafeMethod(method) {
+		// these HTTP methods do not require CSRF protection
+			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+		var csrftoken=getCookie('csrftoken');
+		
+		$.ajaxSetup({
+			beforeSend: function(xhr, settings) {
+				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+					xhr.setRequestHeader("X-CSRFToken", csrftoken);
+				}
+			}
+		});
+		
+		function getCarreras(id){
+			
+			console.log(id);
+			var universidad = document.getElementById(id).value();
+		}
+		
+		var $sub = $('sub');
+		$("#universidadOpcion").click(function(){
+				var id= $("#universidadOpcion").val();
+				$("#idUniversidad").val(id);
+		});
+		$("#mostrarCarreras").click(function(){
+			var id= $("#universidadOpcion").val();
+			var token= getCookie('csrftoken');
+			console.log("Entre a la funcion");
+			$.ajax({
+				method: "POST",
+				url: "{% url 'aaev:registro' %}",
+				data: {id: id, csrftoken: token},
+				async: false,
+				success: exitoAjax,
+				datatype: 'html'
+			
+			});
+		});
+		function exitoAjax(data, textStatus,jqXHR){
+			
+			$("#carrerasMuestra").css("display","inline");
+			$("#carrerasMuestra").html(data);
+		}
+		
+		$("#registrarse").click(function(){
+			var nombre= $("#nombre").val();
+			console.log(nombre);
+			var apellido= $("#apellido").val();
+			console.log(apellido);
+			var dni= $("#dni").val();
+			console.log(dni);
+			var privilegio= $('input[name=privilegio]:checked', '#formularioRegistro').val();
+			console.log(privilegio);
+			var email= $("#email").val();
+			console.log(email);
+			var emailDocente= $("#emailDocente").val();
+			console.log(emailDocente);
+			var mensajeDocente = $("#mensaje").val();
+			var mensajePrueba = $("#mensaje").getContent();
+			console.log(mensajePrueba);
+			if(privilegio == 1){
+				if(nombre == null || apellido == null || dni == null || email == null || mensajeDocente==null)
+				{
+					console.log("ERROR");
+				}else{
+					$("#formularioRegistro").submit();
+				
+				}
+			}else{
+				if(nombre == null || apellido == null || dni == null || emailDocente == null || mensajeDocente==null)
+				{
+					console.log("ERROR");
+				}else{
+					$("#formularioRegistro").submit();
+				
+				}
+			}
+		});
+	});
+	
+	
+	*/
+	
+
+</script>
+
+<body>
+	
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row  mdl-shadow--8dp">
+				<span class="mdl-layout-title"> AAEV 2.0 </span>
+				<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="">Inicio</a>
+				</nav>
+			</div>
+		</header>
+		<main class="mdl-layout__content" id="cuerpo">
+			<div class="page-content">
+				<div class="mdl-grid mdl-cell--6-col" style="align-items: center; justify-content:center;"> 
+					<div class="mdl-cell mdl-cell--12-col" style="margin-top: 50px;">
+						<div class="demo-card-wide mdl-card mdl-shadow--8dp">
+							<div  class="mdl-card__title mdl-card--expand"> 
+								<h2 class="mdl-card__title-text"> REGISTRO </h2>
+							</div>
+							<div class="mdl-card__supporting-text">
+							
+								<form action="{% url 'aaev:formularioRegistro' %}" method="POST" id="formularioRegistro" name="formularioRegistro">
+								{% csrf_token %}
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label 
+									mdl-cell--12-col">
+										<input class="mdl-textfield__input" type="text" id="nombre" name="nombre"/>
+										<label class="mdl-textfield__label" for="nombre"> Ingresa tu nombre </label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label 
+									mdl-cell--12-col">
+										<input class="mdl-textfield__input" type="text" id="apellido" name="apellido"/>
+										<label class="mdl-textfield__label" for="apellido"> Ingresa tu apellido </label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label 
+									mdl-cell--12-col">
+										<input class="mdl-textfield__input" type="text" id="dni" name="dni" />
+										<label class="mdl-textfield__label" for="dni"> DNI </label>
+									</div>
+									<div class="mdl-cell--12-col">
+										<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-cell--8-col"
+										for="opcionAlumno">
+											<input class="mdl-radio__button" id="opcionAlumno" 
+											type="radio" name="privilegio" onclick="mostrarAlumno()" value="1"checked/>
+											<label class="mdl-radio__label" for="privilegioAlumno">Soy alumno</label>
+										</label>
+										<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-cell--4-col"
+										for="opcionDocente">
+											<input class="mdl-radio__button" id="opcionDocente" 
+											type="radio" name="privilegio" onclick="mostrarDocente()"  value="2" />
+											<label class="mdl-radio__label" for="privilegioDocente">Soy docente</label>
+										</label>
+									</div>
+									<div id="Alumno">
+										<div class="mdl-cell--12-col mdl-textfield mdl-js-textfield 
+										mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="text" id="email" name="email">
+											<label for="email" class="mdl-textfield__label">E-mail</label>
+											
+										</div>
+										<div class="mdl-cell--12-col mdl-textfield mdl-js-textfield 
+										mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" id="clave"type="password" name="clave">
+											<label for="clave" class="mdl-textfield__label">Clave</label>
+										</div>
+										<div class="mdl-cell--12-col mdl-textfield mdl-js-textfield 
+										mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" id="clave2" type="password" name="clave2">
+											<label for="clave2" class="mdl-textfield__label">Confirmar clave</label>
+											
+										</div>
+										
+									</div> <!--div de alumno-->
+									<div id="Docente" style="display: none;">
+									<!--
+										<div class="mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label
+										getmdl-select getmdl-select__fullwidth">
+										  <!-- Simple Select 
+											
+												<input class="mdl-textfield__input" type="text" id="universidad" value="Elegir" readonly tabIndex="-1">
+												<label for="universidad" class="mdl-textfield__label">Seleccione universidad</label>
+												<ul id="menuUniversidad" for="universidad" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+												{% for universidad in universidades %}
+												<li id="universidadOpcion"
+												class="mdl-menu__item" value="{{universidad.iduniversidad}}"> {{universidad.nombre}} </li>
+												<!-- 
+													<li class="mdl-menu__item" value="1">(UNLa) Universidad Nacional de Lanus</li>
+													<li class="mdl-menu__item">(UNLZ) Universidad Nacional de Lomas de Zamora</li>
+													<li class="mdl-menu__item">(UBA) Universidad de Buenos Aires</li>
+												</ul>
+												{% endfor %}
+												<input type="button" id="mostrarCarreras" value="VER"/>
+										</div><
+												-->
+									
+										
+										
+
+										
+										<div class="mdl-cell--12-col mdl-textfield mdl-js-textfield 
+											mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="text" id="emailDocente" name="emailDocente">
+												<label for="email" class="mdl-textfield__label">E-mail (solo dominio academico)</label>
+												
+										</div>
+										<div class="mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											
+										   <textarea class="mdl-textfield__input" type="text" rows= "3" id="text7" id="mensaje" name="mensaje"></textarea>
+										   <label class="mdl-textfield__label" for="text7">Escribe un mensaje indicando Universidad, carrera y materia</label>
+											
+										</div>
+										
+									</div><!-- div docente-->
+									<div class="mdl-grid mdl-cell--8-col " >
+										{{form.as_p}} <input type="submit" value="Registrarse"
+										class="mdl-button mdl-js-button mdl-button--raised mdl-cell mdl-cell--12-col" id="registrarse">
+										</input>
+									
+									</div>
+									{% if mensajeError%}
+										<div class="mdl-grid mdl-cell--8-col" >
+											<h4 style="color: red;"> {{mensaje}} </h4>
+										</div>
+									{%endif%}
+									
+								</form><!-- formularioRegistro-->
+							</div>
+						</div> <!--carta-->
+					
+					</div><!--celda de grid-->
+			    </div><!--grid-->
+				<div id="prueba">
+				
+				</div>
+			<input type="hidden" id="idUniversidad" name="idUniversidad" value=""/>
+			</div> <!--contenido de la pagina-->
+		</main>
+	</div>
+</body>
+</html>

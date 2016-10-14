@@ -1,0 +1,107 @@
+<html>
+<head>
+
+<title> AAEV 2.0: Ingreso </title>
+{% load staticfiles %}
+<script src="{% static 'aaev/material.min.js' %}"></script>
+<script src=" {% static 'aaev/jquery.js' %}"></script>
+<script src=" {% static 'aaev/DjangoAjax.js' %}"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.red-blue.min.css" />
+
+
+</head>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#login").click(function(){
+			
+			var usuario= $("#usuario").val();
+			var clave = $("#clave").val();
+			if(usuario == null || clave == null){
+				$("#mensajeError").display='inline';
+				$("#mensajeError").html("Por favor completa todos los campos");
+			}
+		});
+	});
+
+</script>
+
+<body>
+
+<!-- Square card -->
+<style>
+.mdl-layout {
+  align-items: center;
+  justify-content: center;
+}
+.demo-card-square.mdl-card {
+  width: 420px;
+  height: 320px;
+}
+ 
+.demo-card-square > .mdl-card__title {
+  color: #ffffff;
+  background: #6666cc;
+}
+   
+</style>
+<!--titulo AAEV 2.0-->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<header class="mdl-layout__header">
+		<div class= "mdl-layout__header-row">
+			<span class="mdl-layout-title"> AAEV 2.0 </span>
+			<div class="mdl-layout-spacer"></div>
+		</div>
+	</header>
+	<main class="mdl-layout__content">
+		<div class="page-content">
+			<div class="mdl-grid">
+				<div class="demo-card-square mdl-card mdl-shadow--8dp" style="margin-top: 8%; align: center;">
+					<div class="mdl-card__title mdl-card--expand">
+						<h2 class="mdl-card__title-text">Ingreso</h2>
+					</div>
+				  <div class="mdl-card__supporting-text">
+					<form action=" {% url 'aaev:ingresar' %}" method="POST">
+					{% csrf_token %}
+					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="usuario" name="usuario">
+						<label class="mdl-textfield__label" for="usuario">Usuario</label>
+					  </div>
+					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="password" id="clave" name="clave">
+						<label class="mdl-textfield__label" for="clave">Clave</label>
+					  </div>
+					  {% if mensaje %}
+						<h5 style="color: red;"> {{mensaje}} </h5>
+						<h5> {{nombre}} </h5>
+					  {% endif %}
+					  {% if form.errors %}
+						
+						<div>
+							<strong style="color: red;">ASEGURATE DE COMPLETAR TODOS LOS CAMPOS</strong>
+						</div>
+					
+				{% endif %}
+				  </div>
+					
+					  <div class="mdl-card__actions mdl-card--border">
+						<input type="submit" name="login" id="login" value="Ingresar"
+						class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+						<!--<div class="mdl-layout-spacer"></div> -->	
+					</form>
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'aaev:registro' %}">Registrarse</a>
+						
+					  </div>
+
+				</div>
+			</div>
+			<div id="mensajeError" style="display: none;">
+			</div>
+		</div>
+	</main>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+No implementar riesgos tecnicos de conocimientos, perdida de datos, abandono de compañeros, etc.
+Volatibilidad de requisitos: este es un riesgo valido
+Factibilidad: realizar estudio de factibilidad del proyecto (si es viable o no)
+Se puede usar alineacion vertical en el formato
+
+Material Designs es obligatoria para el diseño de interfaz.
+
+CORRECCIONES (DARIO RODRIGUEZ):
+-Caratula (usar la del campus)
+-Unificar todo
+-Seguir mapa de actividades
+-Rehacer el mapa segun el que el profesor nos dio.
+-Mas espacio entre epigrafes y texto de abajo
+
+CORRECCIONES (SEBASTIAN MARTINS): <---- Mayor prioridad
+-Unificar documentos en "documento de proyecto"
+-Usar estimacion de esfuerzo COCOMO II y a partir de ahi correccion de gantt.
+-Usar mapa actividades
+-Documentar eleccion de ciclo de vida en documento formal.
+-Chequear concepto de linea base.
+-Controlar mapa actividades 
+
+-Nombre archivo: documento de proyecto
+-Plan de Retiro no se implementa.
+-Plan de transicion: medio temprano para usarlo. 
+
+CONSEJOS (DARIO RODRIGUEZ):
+-Pegar en un bloc de notas antes de pasar a la plantilla
+-indicar continuacion de tabla volviendo a poner el nombre de la misma arriba y "(continuacion)"
+-Partir gantt en meses y pegar por pares en la hoja para aprovechar  (idem continuacion tabla)
+
+VERSIONADO DE DOC:
+-Primero la version segun aaev 1.0 (quizas tengamos que empezar de la 1.0)
+-Segundo post entrega modificaciones
+-Tercera pre entrega modificaciones
+-La entrega se hace en el 2do hito
+
+Programa para mostrar vids de presentacion:
+- ActivePresenter
+
+IMPRESION DE GANTT:
+-Simplemente puso imprimir...
+
+estandar de uso de web:
+-Get obtener info
+-Post altas
+-update modificaciones
+-delete eliminaciones
+
+MAQUETA:
+-bosquejador software
+-Flujo de navegacion de la pagina
+-mocaps y a partir de eso construir maqueta
+

@@ -1,0 +1,243 @@
+<html>
+<head>
+
+<title> Docente: {{docente.nombre}} {{docente.apellido}}</title>
+{% load staticfiles %}
+
+
+<script src=" {% static 'aaev/jquery.js' %}"></script>
+<script src="{% static 'aaev/material.min.js' %}"></script>
+<script src="{% static 'aaev/select/dist/mdl-selectfield.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'aaev/select/dist/mdl-selectfield.min.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.green-light_green.min.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+.demo-card-wide.mdl-card {
+  width: 800px;
+}
+
+.demo-card-wide > .mdl-card__title {
+
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #6666cc;
+}
+
+.demo-card-wide > .mdl-card__supporting-text {
+
+  align-items: center;
+  justify-content: center;
+
+}
+#boton{
+
+	height: 50px;
+}
+
+button {
+     background:none!important;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     border-bottom:1px solid #444; 
+     cursor: pointer;
+}
+
+.success{
+	text-align: -webkit-center;
+
+}
+
+
+</style>
+<script language="JavaScript" type="text/javascript">
+
+	function submit(){
+				
+				document.getElementById("form").submit();
+			
+	}
+	function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = jQuery.trim(cookies[i]);
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+
+
+	$(document).ready(function(){
+		//Si no usaba este seteo tiraba el error 403 (FORBIDDEN)
+		$.ajaxSetup({ 
+		     beforeSend: function(xhr, settings) {
+		         function getCookie(name) {
+		             var cookieValue = null;
+		             if (document.cookie && document.cookie != '') {
+		                 var cookies = document.cookie.split(';');
+		                 for (var i = 0; i < cookies.length; i++) {
+		                     var cookie = jQuery.trim(cookies[i]);
+		                     // Does this cookie string begin with the name we want?
+		                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                         break;
+		                     }
+		                 }
+		             }
+		             return cookieValue;
+		         }
+		             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		     } 
+		});
+		//si hago click en una de las opciones del select se activa el ajax
+		$("#menuUniversidad").on('change',function(){
+			var elegido= $("#menuUniversidad :selected").val();
+			if(elegido != 0){
+				$("#p2").show();
+				$("#carrerasElegir").empty();
+				$("#materiasElegir").empty();
+				var iduniversidad= $("#menuUniversidad :selected").val();
+				
+				var datos = {'iduniversidad': iduniversidad };
+				$.ajax({
+					method: "POST",
+					url: iduniversidad + '/',  //metodo que trae la lista de carreras
+					data: {iduniversidad: iduniversidad}, //iduniversidad
+					datatype: 'html',
+					success: function(resp){
+						$("#carrerasElegir").html(resp); //imprimo el html armado, pero por alguna razon reimporta este html adentro
+						$("#p2").hide();
+					},
+					error: function(xhr, status, error) {
+					  var err = eval("(" + xhr.responseText + ")");
+					  alert(err);
+					  console.log("Error");
+					}
+				});
+
+			}
+				
+
+
+		});
+
+	});
+		
+</script>
+<body>
+
+	{% if docente %}
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl grid mdl-cell mdl-cell--4-col-phone">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row  mdl-shadow--8dp">
+				<span class="mdl-layout-title" style="color: white;"> AAEV 2.0 / Docente {{docente.nombre}} {{docente.apellido}}</span>
+				<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+				<form method="POST" action="{% url 'aaev:cerrarSesion'%}" name="form"  id="form">
+				{% csrf_token %}
+					<a id="boton" style="color: white;" class="mdl-navigation__link" onclick="document.getElementById('form'),submit();" href="#">Cerrar sesi&#243;n</a>
+				</form>
+				</nav>
+			</div>
+		</header>
+		<main class="mdl-layout__content mdl-cell mdl-cell--4-col-phone" id="cuerpo">
+			<div class="page-content content-grid mdl-grid mdl-cell--4-col-phone">
+				<div style="margin-top: 6%;">
+					{% if mensaje %}
+					<div class="success">
+						<h4> {{mensaje}} </h4>
+					</div>
+					{% endif %}
+					<div class="demo-card-wide mdl-card mdl-shadow--8dp mdl-cell ">
+							<div  class="mdl-card__title mdl-card--expand"> 
+								<h5 class="mdl-card__title-text"> Mis materias </h5>
+							</div>
+							<div class="mdl-card__supporting-text">
+								<div>
+									<p> Aca podes ver tus materias, examenes y dem&#225;s.
+								</div>
+								<div>
+									{% if materias %}
+									<table class="mdl-data-table mdl-js-data-table">
+										<thead>
+											<tr>
+												<th class="mdl-data-table-cel--non-numeric"> Materia </th>
+												<th> Unidades </th>
+												<th> Preguntas </th>
+												<th> Examenes </th>
+												<th> Alumnos pendientes </th>
+												<th> Alumnos aceptados </th>
+											</tr>
+										<thead>
+										<tbody>
+											{% for materia in materias %}
+											<tr onclick="console.log('click'); return false;">
+											
+												<td class="mdl-data-table-cel--non-numeric">{{materia.nombre}}</td>
+												<td> {{ materia| contarUnidades }}	</td>
+												<td> {{ materia| contarPreguntas }}</td>
+												<td> {{ materia| contarExamenes}}	</td>
+												{% if materia|contarSolicitantes|vacio %}
+												<td style="color: #1bc700;"> Sin solicitudes </td>
+												{% else %}
+												<td style="color: #0fd7ff;"> {{ materia|contarSolicitantes}} </td>
+												{% endif %}
+												{% if materia|contarInscriptos|vacio %}
+												<td style="color: #1bc700;"> Sin inscriptos </td>
+												{% else %}
+												<td style="color: #0fd7ff;"> {{ materia|contarInscriptos}} </td>
+												{% endif %}
+												
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+									{% else %}
+										<p> No tenes materias en este momento </p>
+									{% endif %}
+								
+								</div>
+							</div>
+					</div>
+					<div class="demo-card-wide mdl-card mdl-shadow--8dp mdl-cell"  style="margin-top: 7%;">
+						<div class="mdl-card__title mdl-card--expand">
+							<h5 class="mdl-card__title-text"> Solicitud de Materia </h5>
+						</div>
+						
+						<div>
+
+						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label mdl-cell">
+						  <select id="menuUniversidad" class="mdl-selectfield__select">
+						  	<option value="0" selected="selected"> Elegir...</option>  
+						    {% for universidad in universidades %}
+						    	<option value="{{universidad.iduniversidad}}"> {{universidad.nombre}} </option>
+						    {% endfor %}
+						  </select>
+						  <label class="mdl-selectfield__label" for="menuUniversidad">Seleccione universidad</label>
+						  <span class="mdl-selectfield__error">Elegi universidad</span>
+						</div>
+						<div id="p2" style="display: none; margin-top: 50px;" class="mdl-cell mdl-cell--12-col mdl-progress mdl-js-progress mdl-progress__indeterminate"></div> <!-- barra de carga MDL -->
+						
+						<div id="carrerasElegir">
+	
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</main>
+	</div>
+	{% endif %}
+</body>
+</html>

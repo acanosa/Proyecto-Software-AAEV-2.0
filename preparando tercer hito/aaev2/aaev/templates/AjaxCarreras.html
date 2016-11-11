@@ -1,0 +1,90 @@
+
+<html>		
+<head>	
+{% load staticfiles %}
+
+<!--
+<script src=" {% static 'aaev/jquery.js' %}"></script>
+<script src="{% static 'aaev/material.min.js' %}"></script>
+<script src="{% static 'aaev/select/dist/mdl-selectfield.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'aaev/select/dist/mdl-selectfield.min.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.green-light_green.min.css" />
+-->
+</head>
+<style>
+
+option{
+	font-family: 'Roboto','Helvetica','Arial',sans-serif;
+}
+</style>
+<script>
+
+$(document).ready(function(){
+	
+	$("#menuCarrera").on('change', function(){
+	//$("#carreraOpcion").click(function(event){ //lo que clickee queda en el select
+		var elegido= $("#menuCarrera :selected").val();
+		if (elegido != 0){
+			$("#esperaCarreras").show();
+			var carrera= $(this).val();
+			$("#dropCarrera").val($(this).text());
+			var universidad= $("#iduniversidad").val();
+			$.ajax({
+				method: "POST",
+				url: universidad + "/" +carrera + "/",
+				data: {iduniversidad: universidad, idcarrera: carrera},
+				success: function(respuesta){
+					$("#materiasElegir").html(respuesta);
+					$("#esperaCarreras").hide();
+				}
+				
+			
+
+			});
+		}
+	});
+
+
+});
+
+</script>
+<body>	
+						
+	<!--
+	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth mdl-cell" style="padding: auto;">
+		<input class="mdl-textfield__input" type="text" id="dropCarrera" value="Elegir" readonly tabIndex="0">
+		<label for="dropCarrera" class="mdl-textfield__label">Seleccione carrera</label>
+		<ul id="menuCarrera" for="dropCarrera" class="mdl-menu mdl-js-menu mdl-menu--bottom-left ">
+			{% for carrera in carreras %}
+			<li id="carreraOpcion"
+			class="mdl-menu__item" value="{{carrera.idcarrera}}"> {{carrera.nombre}} </li>
+			{% endfor %}
+		</ul>
+	</div> 
+	carreras
+	-->	
+	<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label mdl-cell is-dirty is-upgraded">
+		<select id="menuCarrera" class="mdl-selectfield__select">
+		  	<option value="0" selected="selected"> Elegir...</option> 
+		    {% for carrera in carreras %}
+		    	<option value="{{carrera.idcarrera}}"> {{carrera.nombre}} </option>
+		    {% endfor %}
+		</select>
+		<label class="mdl-selectfield__label" for="menuCarrera">Seleccione carrera</label>
+		<span class="mdl-selectfield__error">Elegi carrera</span>
+	</div>
+
+						  
+						  	
+						   
+						
+						  								
+	<div id="esperaCarreras" style="display: none; margin-top: 50px;" class="mdl-cell mdl-cell--12-col mdl-progress mdl-js-progress mdl-progress__indeterminate"></div> <!-- barra de carga MDL -->
+	<input type="hidden" value={{iduniversidad}} id="iduniversidad">
+
+	<div id="materiasElegir">
+
+	</div>
+</body>
+</html>

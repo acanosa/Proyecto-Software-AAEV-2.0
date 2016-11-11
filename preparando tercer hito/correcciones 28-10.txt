@@ -1,0 +1,47 @@
+-Requisito funcional 8: fecha de inicio y fin, con la usabilidad es lo mismo
+-Diagrama de uso: doble event
+hay una relacion entre carrera y materia? son idependientes y separar el GEstionar en ABM
+-corregir "eliminar docentes"
+-escenario "decripcion paso a paso de como se va a realizar  "aceptar docentes"
+¿que usuario puede hacerlo?
+condiciones-> el admin tiene q estar ingresado
+	   -> pasos para habiltar el docente
+Pasos decripciones -> acciones que hace el rol
+		   ->info adicional que debe hacer diseño el sistema
+
+--------------------------------------------------|
+humano|Sistema                                    |
+--------------------------------------------------|
+      |comentarios que ayuden a comentar ese paso |
+--------------------------------------------------|
+
+-Pruebas "entreda" que datos se van a ingresar y que no
+ *pruebas extendidas
+ *pruebas permitidas
+ *pruebas extremos
+ *mail
+ej: que texte que cumple el patron
+
+diferntes posibilades  para romper el programa
+
+usuario:usuario
+contraseña:contraseña
+
+usuario:asdasd
+contraseña:****
+
+usuario:asdsa
+contraseña:constraseña
+
+usuario:usuario
+contraseña:****
+usuario que realiza las puebras "admin" "docente"
+
+-Alcance del prototipo : establecer que esperamos hacer para ese prototipo , documentarlo ej :trello
+cuanto tiempo le pusimos a ese prototipo
+-plan de transicion como planificamos instalar el sistema en serv
+plan de transicion( def: ya tenes algo y vas a introducir un nuevo sistema ->estrategia para incorporarlo)
+-prueba la entrada no es detallada que valor ingresaste para efectuar la prueba
+-.pruebas de regresion 
+-poner el resultado que deducimos o como una nota
+que funcion a probar | rango y datos |esperado | obtenido | calificaion

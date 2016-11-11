@@ -1,0 +1,96 @@
+<html>
+<head>
+{% load staticfiles %}
+
+<script src="{% static 'aaev/DjangoAjax.js' %}"></script>
+<script src="{% static 'aaev/getmdl-select.min.js' %}"></script>
+<script src=" {% static 'aaev/jquery.js' %}"></script>
+<script src="{% static 'aaev/material.min.js' %}"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.green-light_green.min.css" />
+</head>
+<script>
+
+$(document).ready(function(){
+
+	$("#menuMateria").on('change', function(){
+		var id = $("#menuMateria :selected").val();
+		console.log(id);
+
+	});
+
+	$("#submitSolicitud").click(function(event){
+		event.preventDefault();
+		var iduniversidad = $("#iduniversidad").val();
+		var idcarrera = $("#idcarrera").val();
+		var idmateria = $("#materia_idmateria :selected").val();
+		var url =iduniversidad  + "/" + idcarrera + "/" + idmateria + "/"; 
+		if (idmateria==0){
+			var html = "<h4> Por favor elegi una materia. </h4>";
+			$("#errorForm").html(html);
+		} else{
+			//$.post(url, {idmateria: idmateria, mensaje: mensaje});
+			$("#formularioEnvio").submit();
+		}
+	//jquery validator: buscar
+	});
+
+});
+
+</script>
+<style>
+.error{
+	color: red;
+	font-size: 12px;
+}	
+
+</style>
+<body>
+
+	{% if mensaje %}
+	<div class="mdl-cell"> 
+		<h4 class="error"> {{mensaje}} </h4>
+	</div>
+	{% endif %}
+	{% if materias %}
+	<form id="formularioEnvio" action= "{% url 'aaev:enviarSolicitudMateria' %}" method="POST"> 
+	{% csrf_token %}
+		<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label mdl-cell is-dirty is-upgraded">
+			<select id="materia_idmateria" name="materia_idmateria" class="mdl-selectfield__select">
+			  	<option   value="0" disabled="disabled" selected="selected"> Elegir...</option> 
+			    {% for materia in materias %}
+			    	<option   value="{{materia.idmateria}}"> {{materia.nombre}} </option>
+			    {% endfor %}
+			</select>
+			
+			<label class="mdl-selectfield__label" for="menuMateria">Seleccione materia</label>
+			<span class="mdl-selectfield__error">Elegi materia</span>
+		</div>
+		<div class="mdl-card__supporting-text mdl-cell--10-col">
+			<p>Escribi un mensaje/comentario (opcional)</p>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+				<label for="mensajeSolicitud" class="mdl-textfield__label"> Escribi el mensaje aca </label>
+				<textarea class="mdl-textfield__input"  id="mensaje" name="mensaje" rows="3" ></textarea>
+			</div>
+		</div>
+
+		<div class="error" style="display: none;" id="errorForm">
+
+
+		</div>
+		<div class="mdl-card__actions mdl-card--border  mdl-cell--12-col">
+			<div>
+				<input type="submit" value="Enviar solicitud" id="submitSolicitud"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-shadow--8dp mdl-cell mdl-cell--12-col" id="registrarse">
+				</input>
+			</div>
+		</div>
+
+	</form>				
+		<input type="hidden" value={{iduniversidad}} id="iduniversidad">
+		<input type="hidden" value={{idcarrera}} id="idcarrera">
+							
+	</div>
+	{% endif %}
+</body>
+</html>
